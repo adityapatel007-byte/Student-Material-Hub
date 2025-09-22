@@ -7,6 +7,7 @@ const rateLimit = require('express-rate-limit');
 const dotenv = require('dotenv');
 const cookieParser = require('cookie-parser');
 const path = require('path');
+const multer = require('multer');
 
 // Load env vars
 dotenv.config();
@@ -54,6 +55,10 @@ app.use(cors({
 // Body parser middleware
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+
+// Add multer for form-data parsing (without file uploads)
+const formUpload = multer();
+app.use('/api/auth', formUpload.none()); // Handle form-data for auth routes
 
 // Cookie parser
 app.use(cookieParser());

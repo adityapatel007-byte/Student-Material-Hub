@@ -28,6 +28,11 @@ const loginValidation = [
 ];
 
 router.post('/register', registerValidation, register);
+router.post('/test', (req, res) => {
+  console.log('TEST - Request body:', req.body);
+  console.log('TEST - Request headers:', req.headers);
+  res.json({ body: req.body, headers: req.headers });
+});
 router.post('/login', loginValidation, login);
 router.get('/me', protect, getMe);
 router.put('/updatedetails', protect, updateDetails);

@@ -7,9 +7,13 @@ const { validationResult } = require('express-validator');
 // @access  Public
 exports.register = async (req, res, next) => {
   try {
+    // Debug logging
+    console.log('Request body:', req.body);
+    
     // Check for validation errors
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
+      console.log('Validation errors:', errors.array());
       return res.status(400).json({
         success: false,
         message: 'Validation error',
