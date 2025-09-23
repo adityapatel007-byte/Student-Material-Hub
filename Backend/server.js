@@ -4,6 +4,10 @@ const helmet = require('helmet');
 const morgan = require('morgan');
 const compression = require('compression');
 const rateLimit = require('express-rate-limit');
+const slowDown = require('express-slow-down');
+const mongoSanitize = require('express-mongo-sanitize');
+const xss = require('xss-clean');
+const hpp = require('hpp');
 const dotenv = require('dotenv');
 const cookieParser = require('cookie-parser');
 const path = require('path');
@@ -14,6 +18,9 @@ dotenv.config();
 
 // Database connection
 const connectDB = require('./config/database');
+
+// Swagger documentation
+const { specs, swaggerUi, swaggerOptions } = require('./config/swagger');
 
 // Route files
 const auth = require('./routes/auth');
@@ -41,9 +48,38 @@ const limiter = rateLimit({
   legacyHeaders: false,
 });
 
+// Slow down repeated requests
+const speedLimiter = slowDown({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  delayAfter: 50, // allow 50 requests per windowMs without delay
+  delayMs: () => 500, // add 500ms delay per request after delayAfter
+  validate: { delayMs: false } // disable warning
+});
+
 // Security middleware
-app.use(helmet());
+app.use(helmet({
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      styleSrc: ["'self'", "'unsafe-inline'"],
+      scriptSrc: ["'self'"],
+      imgSrc: ["'self'", "data:", "https:"],
+    },
+  },
+}));
 app.use(limiter);
+app.use(speedLimiter);
+
+// Data sanitization against NoSQL query injection
+app.use(mongoSanitize());
+
+// Data sanitization against XSS
+app.use(xss());
+
+// Prevent parameter pollution
+app.use(hpp({
+  whitelist: ['sort', 'fields', 'page', 'limit', 'search']
+}));
 
 // CORS configuration
 app.use(cors({
@@ -83,6 +119,12 @@ app.get('/api/health', (req, res) => {
     environment: process.env.NODE_ENV
   });
 });
+
+// API Documentation
+if (process.env.NODE_ENV === 'development') {
+  app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs, swaggerOptions));
+  console.log('📚 API Documentation available at /api-docs');
+}
 
 // Mount routers
 app.use('/api/auth', auth);

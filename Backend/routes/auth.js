@@ -1,42 +1,53 @@
 const express = require('express');
-const { body } = require('express-validator');
 const {
   register,
   login,
   getMe,
   updateDetails,
   updatePassword,
-  logout
+  logout,
+  verifyEmail,
+  resendVerificationEmail,
+  forgotPassword,
+  resetPassword,
+  getAccountStatus
 } = require('../controllers/authController');
 const { protect } = require('../middleware/auth');
+const {
+  validateUserRegistration,
+  validateUserLogin,
+  validateUpdateUserDetails,
+  validatePasswordUpdate,
+  validateEmail,
+  validatePasswordReset
+} = require('../middleware/validation');
 
 const router = express.Router();
 
-// Validation rules
-const registerValidation = [
-  body('name', 'Name is required').notEmpty().trim(),
-  body('email', 'Please provide a valid email').isEmail().normalizeEmail(),
-  body('password', 'Password must be at least 6 characters').isLength({ min: 6 }),
-  body('university', 'University is required').notEmpty().trim(),
-  body('course', 'Course is required').notEmpty().trim(),
-  body('semester', 'Semester must be a number between 1-12').isInt({ min: 1, max: 12 })
-];
+// Authentication routes
+router.post('/register', validateUserRegistration, register);
+router.post('/login', validateUserLogin, login);
+router.get('/logout', logout);
 
-const loginValidation = [
-  body('email', 'Please provide a valid email').isEmail().normalizeEmail(),
-  body('password', 'Password is required').notEmpty()
-];
+// Email verification routes
+router.get('/verify-email/:token', verifyEmail);
+router.post('/resend-verification', validateEmail, resendVerificationEmail);
+router.get('/account-status/:email', getAccountStatus);
 
-router.post('/register', registerValidation, register);
+// Password reset routes
+router.post('/forgotpassword', validateEmail, forgotPassword);
+router.put('/resetpassword/:token', validatePasswordReset, resetPassword);
+
+// Protected routes
+router.get('/me', protect, getMe);
+router.put('/updatedetails', protect, validateUpdateUserDetails, updateDetails);
+router.put('/updatepassword', protect, validatePasswordUpdate, updatePassword);
+
+// Test route for debugging
 router.post('/test', (req, res) => {
   console.log('TEST - Request body:', req.body);
   console.log('TEST - Request headers:', req.headers);
   res.json({ body: req.body, headers: req.headers });
 });
-router.post('/login', loginValidation, login);
-router.get('/me', protect, getMe);
-router.put('/updatedetails', protect, updateDetails);
-router.put('/updatepassword', protect, updatePassword);
-router.get('/logout', logout);
 
 module.exports = router;
