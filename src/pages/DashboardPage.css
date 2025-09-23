@@ -1,0 +1,46 @@
+.dashboard-container {
+  padding: 40px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 20px auto;
+  max-width: 800px;
+  text-align: center;
+}
+
+.dashboard-container h1 {
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.dashboard-container p {
+  color: #666;
+  font-size: 1.1rem;
+}
+
+.admin-dashboard {
+  border: 2px solid #e74c3c;
+}
+
+.student-dashboard {
+  border: 2px solid #2ecc71;
+}
+
+.admin-actions, .student-actions {
+  margin-top: 20px;
+}
+
+.admin-actions button, .student-actions button {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.admin-actions button:hover, .student-actions button:hover {
+  background-color: #2980b9;
+}
