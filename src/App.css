@@ -1,0 +1,18 @@
+.container { max-width: 900px; margin: 0 auto; padding: 24px; }
+.center-page { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 0; overflow: hidden; }
+.header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+.auth { max-width: 420px; margin: 32px auto; padding: 24px; border: 1px solid var(--color-steel); border-radius: 8px; background: var(--color-cream); }
+.tabs { display: flex; gap: 8px; margin-bottom: 16px; }
+.tabs a, .tabs button { padding: 8px 12px; border: 1px solid var(--color-steel); border-radius: 6px; background: #f3f4f6; color: var(--color-navy); }
+.tabs .active { background: var(--color-steel); color: white; }
+.form { display: flex; flex-direction: column; gap: 12px; }
+.form input, .form select { padding: 10px 12px; border: 1px solid var(--color-steel); border-radius: 6px; background: white; color: var(--color-navy); }
+.form button { padding: 10px 12px; }
+.upload { margin-bottom: 24px; }
+.notes ul { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; }
+.note { display: flex; flex-direction: column; justify-content: space-between; gap: 8px; padding: 12px; border: 2px solid var(--color-steel); border-radius: 12px; background: var(--color-cream); min-height: 160px; box-shadow: 0 2px 6px rgba(0,0,0,0.06); }
+.note:hover { border-color: var(--color-navy); box-shadow: 0 4px 10px rgba(0,0,0,0.08); }
+.note strong { color: var(--color-navy); }
+.meta { color: var(--color-navy); opacity: 0.7; font-size: 12px; }
+.actions { display: flex; gap: 8px; align-items: center; justify-content: flex-end; }
+.danger { background: var(--color-crimson); color: white; border: none; padding: 8px 10px; border-radius: 6px; cursor: pointer; }

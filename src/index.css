@@ -1,0 +1,13 @@
+:root {
+  --color-crimson: #780000;
+  --color-red: #c1121f;
+  --color-cream: #fdf0d5;
+  --color-navy: #003049;
+  --color-steel: #669bbc;
+}
+
+body { margin: 0; font-family: system-ui, Avenir, Helvetica, Arial, sans-serif; background: var(--color-cream); color: var(--color-navy); }
+a { color: var(--color-steel); text-decoration: none; }
+a:hover { color: var(--color-navy); }
+button { border-radius: 8px; border: 1px solid var(--color-crimson); background: var(--color-red); color: var(--color-cream); cursor: pointer; padding: 10px 12px; }
+button:hover { filter: brightness(0.95); }
