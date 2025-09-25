@@ -40,6 +40,7 @@ export const NotesAPI = {
   },
   downloadUrl: (id) => `/api/notes/${id}/download`,
   remove: (id) => apiFetch(`/api/notes/${id}`, { method: 'DELETE' }),
+  removeStudent: (id) => apiFetch(`/api/notes/${id}/student`, { method: 'DELETE' }),
   async downloadBlob(id) {
     const token = getToken()
     const res = await fetch(`/api/notes/${id}/download`, {

@@ -12,6 +12,7 @@ export default function Dashboard() {
   function onUploadChange(e) { const { name, value, files } = e.target; if (name==='file') setUpload(p=>({...p, file: files?.[0]||null})); else setUpload(p=>({...p, [name]: value})) }
   async function submitUpload(e) { e.preventDefault(); if(!upload.file) return alert('Select a file'); const d = await NotesAPI.upload(upload); setNotes(n=>[d.note,...n]); setUpload({ title:'', description:'', file:null }) }
   async function removeNote(id) { if(!confirm('Delete this note?')) return; await NotesAPI.remove(id); setNotes(n=>n.filter(x=>x._id!==id)) }
+  async function removeStudentNote(id) { if(!confirm('Delete this note?')) return; await NotesAPI.removeStudent(id); setNotes(n=>n.filter(x=>x._id!==id)) }
   async function downloadNote(id) { try { const { blob, filename } = await NotesAPI.downloadBlob(id); const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = filename; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url); } catch (e) { alert(e.message || 'Download failed') } }
   return (
     <div className="container">
@@ -38,6 +39,7 @@ export default function Dashboard() {
               <div className="actions">
                 <button onClick={() => downloadNote(n._id)}>Download</button>
                 {isAdmin && (<button onClick={() => removeNote(n._id)} className="danger">Delete</button>)}
+                {!isAdmin && n.uploader?._id === user?._id && (<button onClick={() => removeStudentNote(n._id)} className="danger">Delete</button>)}
               </div>
             </li>
           ))}

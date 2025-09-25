@@ -67,6 +67,32 @@ router.delete('/:id', requireAuth, requireAdmin, async (req, res) => {
   res.json({ ok: true });
 });
 
+router.delete('/:id/student', requireAuth, async (req, res) => {
+  try {
+    const note = await Note.findById(req.params.id);
+    if (!note) return res.status(404).json({ error: 'Not found' });
+    
+    // Check if the current user is the uploader of this note
+    // Handle both ObjectId and populated user object
+    const uploaderId = note.uploader._id ? note.uploader._id.toString() : note.uploader.toString();
+    if (uploaderId !== req.userId) {
+      return res.status(403).json({ error: 'You can only delete your own files' });
+    }
+    
+    // Delete the note from database
+    await Note.findByIdAndDelete(req.params.id);
+    
+    // Delete the physical file
+    const filePath = path.join(uploadDir, note.filename);
+    if (fs.existsSync(filePath)) fs.unlinkSync(filePath);
+    
+    res.json({ ok: true });
+  } catch (e) {
+    console.error('Delete error:', e);
+    res.status(500).json({ error: 'Delete failed' });
+  }
+});
+
 module.exports = router;
 
 
