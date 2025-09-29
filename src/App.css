@@ -14,7 +14,7 @@
     overflow: hidden;
 }
 
-.header {
+.header { 
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -124,4 +124,133 @@
     padding: 8px 10px;
     border-radius: 6px;
     cursor: pointer;
+}
+
+/* Modal Styles */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: white;
+    border-radius: 12px;
+    max-width: 90vw;
+    max-height: 90vh;
+    width: 800px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--color-steel);
+    background: var(--color-cream);
+}
+
+.modal-header h3 {
+    margin: 0;
+    color: var(--color-navy);
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: var(--color-navy);
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.close-btn:hover {
+    background: var(--color-steel);
+    color: white;
+}
+
+.modal-body {
+    padding: 20px;
+    overflow: auto;
+    max-height: 70vh;
+}
+
+.modal-footer {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    padding: 16px 20px;
+    border-top: 1px solid var(--color-steel);
+    background: var(--color-cream);
+}
+
+/* Admin Panel Styles */
+.stat-card {
+    background: var(--color-cream);
+    border: 2px solid var(--color-steel);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+}
+
+.stat-card h3 {
+    margin: 0 0 10px 0;
+    color: var(--color-navy);
+    font-size: 16px;
+}
+
+.admin-form {
+    background: var(--color-cream);
+    border: 1px solid var(--color-steel);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 25px;
+}
+
+.admin-form h4 {
+    margin: 0 0 15px 0;
+    color: var(--color-navy);
+}
+
+.subjects-list {
+    background: var(--color-cream);
+    border: 1px solid var(--color-steel);
+    border-radius: 12px;
+    padding: 20px;
+}
+
+.subjects-list h4 {
+    margin: 0 0 15px 0;
+    color: var(--color-navy);
+}
+
+.subject-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border: 1px solid var(--color-steel);
+    border-radius: 8px;
+    background: white;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.subject-item:hover {
+    border-color: var(--color-navy);
 }

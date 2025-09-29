@@ -10,6 +10,7 @@ export default function Header() {
         <nav style={{ display: 'flex', gap: 8 }}>
           <Link to="/notes">Browse</Link>
           <Link to="/upload">Upload</Link>
+          {user?.role === 'admin' && <Link to="/admin">Admin Panel</Link>}
         </nav>
       </div>
       <div>

@@ -30,11 +30,18 @@ export const AuthAPI = {
 }
 
 export const NotesAPI = {
-  list: () => apiFetch('/api/notes'),
-  upload: ({ title, description, file }) => {
+  list: (params = {}) => {
+    const searchParams = new URLSearchParams()
+    if (params.subject) searchParams.append('subject', params.subject)
+    if (params.search) searchParams.append('search', params.search)
+    const queryString = searchParams.toString()
+    return apiFetch(`/api/notes${queryString ? `?${queryString}` : ''}`)
+  },
+  upload: ({ title, description, subject, file }) => {
     const fd = new FormData()
     if (title) fd.append('title', title)
     if (description) fd.append('description', description)
+    if (subject) fd.append('subject', subject)
     fd.append('file', file)
     return apiFetch('/api/notes', { method: 'POST', body: fd })
   },
@@ -56,6 +63,13 @@ export const NotesAPI = {
     const blob = await res.blob()
     return { blob, filename }
   },
+}
+
+export const SubjectsAPI = {
+  list: () => apiFetch('/api/subjects'),
+  create: (payload) => apiFetch('/api/subjects', { method: 'POST', body: JSON.stringify(payload) }),
+  update: (id, payload) => apiFetch(`/api/subjects/${id}`, { method: 'PUT', body: JSON.stringify(payload) }),
+  remove: (id) => apiFetch(`/api/subjects/${id}`, { method: 'DELETE' }),
 }
 
 

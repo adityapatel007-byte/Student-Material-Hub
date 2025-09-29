@@ -28,17 +28,38 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 router.get('/', requireAuth, async (req, res) => {
-  const notes = await Note.find().populate('uploader', 'name email role').sort({ createdAt: -1 });
-  res.json({ notes });
+  try {
+    const { subject, search } = req.query;
+    let query = {};
+    
+    // Filter by subject if provided
+    if (subject && subject !== 'all') {
+      query.subject = subject;
+    }
+    
+    // Search in title and description if search term provided
+    if (search) {
+      query.$or = [
+        { title: { $regex: search, $options: 'i' } },
+        { description: { $regex: search, $options: 'i' } }
+      ];
+    }
+    
+    const notes = await Note.find(query).populate('uploader', 'name email role').sort({ createdAt: -1 });
+    res.json({ notes });
+  } catch (e) {
+    res.status(500).json({ error: 'Server error' });
+  }
 });
 
 router.post('/', requireAuth, upload.single('file'), async (req, res) => {
   try {
     if (!req.file) return res.status(400).json({ error: 'File is required' });
-    const { title, description } = req.body;
+    const { title, description, subject } = req.body;
     const note = await Note.create({
       title: title || req.file.originalname,
       description: description || '',
+      subject: subject || 'General',
       filename: req.file.filename,
       originalName: req.file.originalname,
       mimeType: req.file.mimetype,

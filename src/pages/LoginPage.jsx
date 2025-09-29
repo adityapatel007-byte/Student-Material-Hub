@@ -8,10 +8,22 @@ export default function LoginPage() {
   const [form, setForm] = useState({ email: '', password: '' })
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState('')
+  
   function handleChange(e) { const { name, value } = e.target; setForm(p => ({ ...p, [name]: value })) }
+  
+  function validateForm() {
+    // Basic password validation for login (just to ensure it meets minimum requirements)
+    if (form.password.length < 6) {
+      setError('Password must be at least 6 characters long')
+      return false
+    }
+    return true
+  }
+  
   async function submit(e) {
     e.preventDefault()
     setError('')
+    if (!validateForm()) return
     try { setSubmitting(true); await login(form.email, form.password); nav('/') } catch (err) { setError(err.message || 'Login failed') } finally { setSubmitting(false) }
   }
   return (

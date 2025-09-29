@@ -10,6 +10,17 @@ router.post('/register', async (req, res) => {
   try {
     const { name, email, password, role } = req.body;
     if (!name || !email || !password) return res.status(400).json({ error: 'Missing fields' });
+    
+    // Name validation
+    if (name.length < 6) return res.status(400).json({ error: 'Name must be at least 6 characters long' });
+    if (!/^[a-zA-Z\s]+$/.test(name)) return res.status(400).json({ error: 'Name can only contain letters and spaces' });
+    
+    // Password validation
+    if (password.length < 6) return res.status(400).json({ error: 'Password must be at least 6 characters long' });
+    if (!/^(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9\s!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?`~]+$/.test(password)) {
+      return res.status(400).json({ error: 'Password must contain at least one uppercase and one lowercase letter, and only contain standard keyboard characters' });
+    }
+    
     const existing = await User.findOne({ email });
     if (existing) return res.status(409).json({ error: 'Email already registered' });
     const passwordHash = await bcrypt.hash(password, 10);
