@@ -43,6 +43,7 @@ export default function RegisterPage() {
   }
   return (
     <div className="center-page">
+      <h1 style={{ textAlign: 'center', marginBottom: 24, color: 'var(--color-text-dark)', textShadow: '0 2px 4px var(--color-shadow)', fontSize: '2.5em' }}>Student Material Hub</h1>
       <div className="auth">
         <div className="tabs"><Link to="/login">Login</Link><Link className="active" to="/register">Register</Link></div>
         <form onSubmit={submit} className="form">

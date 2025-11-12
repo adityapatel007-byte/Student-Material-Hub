@@ -101,12 +101,12 @@ export default function NotesPage() {
               placeholder="Search notes..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              style={{ padding: '8px 12px', borderRadius: '6px', border: '1px solid var(--color-steel)', minWidth: '200px' }}
+              style={{ padding: '10px 16px', borderRadius: '8px', border: '1px solid var(--color-border)', minWidth: '200px', background: 'rgba(255, 255, 255, 0.8)' }}
             />
             <select
               value={selectedSubject}
               onChange={(e) => setSelectedSubject(e.target.value)}
-              style={{ padding: '8px 12px', borderRadius: '6px', border: '1px solid var(--color-steel)' }}
+              style={{ padding: '10px 16px', borderRadius: '8px', border: '1px solid var(--color-border)', background: 'rgba(255, 255, 255, 0.8)' }}
             >
               <option value="all">All Subjects</option>
               {subjects.map(subject => (
@@ -130,7 +130,7 @@ export default function NotesPage() {
               </div>
               <div className="actions">
                 {canPreview(n.mimeType) && (
-                  <button onClick={() => previewFile(n)} style={{ background: 'var(--color-steel)', color: 'white' }}>
+                  <button onClick={() => previewFile(n)} style={{ background: 'var(--color-buttons)', color: 'white' }}>
                     Preview
                   </button>
                 )}

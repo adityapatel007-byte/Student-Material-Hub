@@ -186,7 +186,7 @@ export default function AdminPanel() {
                   <div style={{ display: 'flex', gap: '8px' }}>
                     <button
                       onClick={() => setEditingSubject(subject)}
-                      style={{ background: 'var(--color-steel)', color: 'white' }}
+                      style={{ background: 'var(--color-buttons)', color: 'white' }}
                     >
                       Edit
                     </button>

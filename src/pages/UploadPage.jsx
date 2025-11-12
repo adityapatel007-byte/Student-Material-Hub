@@ -109,7 +109,7 @@ export default function UploadPage() {
               </div>
               <div className="actions">
                 {canPreview(n.mimeType) && (
-                  <button onClick={() => previewFile(n)} style={{ background: 'var(--color-steel)', color: 'white' }}>
+                  <button onClick={() => previewFile(n)} style={{ background: 'var(--color-buttons)', color: 'white' }}>
                     Preview
                   </button>
                 )}

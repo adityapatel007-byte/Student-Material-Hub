@@ -12,6 +12,7 @@ const { initializeDatabase } = require('./utils/init');
 const authRoutes = require('./routes/auth');
 const noteRoutes = require('./routes/notes');
 const subjectRoutes = require('./routes/subjects');
+const questionRoutes = require('./routes/questions');
 
 const app = express();
 
@@ -34,6 +35,7 @@ app.get('/api/health', (req, res) => {
 app.use('/api/auth', authRoutes);
 app.use('/api/notes', noteRoutes);
 app.use('/api/subjects', subjectRoutes);
+app.use('/api/questions', questionRoutes);
 
 async function start() {
   await connectToDatabase();

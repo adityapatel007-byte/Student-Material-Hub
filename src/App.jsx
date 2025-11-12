@@ -8,6 +8,7 @@ import Dashboard from './pages/Dashboard'
 import UploadPage from './pages/UploadPage'
 import NotesPage from './pages/NotesPage'
 import AdminPanel from './pages/AdminPanel'
+import QAPage from './pages/QAPage'
 
 export default function App() {
   return (
@@ -18,6 +19,7 @@ export default function App() {
         <Route path="/" element={<RequireAuth><Dashboard /></RequireAuth>} />
         <Route path="/upload" element={<RequireAuth><UploadPage /></RequireAuth>} />
         <Route path="/notes" element={<RequireAuth><NotesPage /></RequireAuth>} />
+        <Route path="/qa" element={<RequireAuth><QAPage /></RequireAuth>} />
         <Route path="/admin" element={<RequireAuth><AdminPanel /></RequireAuth>} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>

@@ -1,13 +1,49 @@
 :root {
-  --color-crimson: #780000;
-  --color-red: #c1121f;
-  --color-cream: #fdf0d5;
-  --color-navy: #003049;
-  --color-steel: #669bbc;
+  --color-background: #ECF4E8;
+  --color-light-accent: #CBF3BB;
+  --color-tiles: #ABE7B2;
+  --color-buttons: #93BFC7;
+  --color-button-hover: #7AA8B0;
+  --color-text-dark: #2C5F2D;
+  --color-text-light: #5A7C5B;
+  --color-border: #93BFC7;
+  --color-danger: #D9534F;
+  --color-danger-hover: #C9302C;
+  --color-shadow: rgba(0, 0, 0, 0.1);
+  --color-shadow-hover: rgba(0, 0, 0, 0.15);
 }
 
-body { margin: 0; font-family: system-ui, Avenir, Helvetica, Arial, sans-serif; background: var(--color-cream); color: var(--color-navy); }
-a { color: var(--color-steel); text-decoration: none; }
-a:hover { color: var(--color-navy); }
-button { border-radius: 8px; border: 1px solid var(--color-crimson); background: var(--color-red); color: var(--color-cream); cursor: pointer; padding: 10px 12px; }
-button:hover { filter: brightness(0.95); }
+body { 
+  margin: 0; 
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif; 
+  background: var(--color-background); 
+  color: var(--color-text-dark); 
+}
+
+a { 
+  color: var(--color-buttons); 
+  text-decoration: none; 
+  transition: color 0.2s ease;
+}
+
+a:hover { 
+  color: var(--color-button-hover); 
+}
+
+button { 
+  border-radius: 8px; 
+  border: 1px solid var(--color-buttons); 
+  background: var(--color-buttons); 
+  color: white; 
+  cursor: pointer; 
+  padding: 10px 12px; 
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px var(--color-shadow);
+}
+
+button:hover { 
+  background: var(--color-button-hover);
+  border-color: var(--color-button-hover);
+  box-shadow: 0 4px 8px var(--color-shadow-hover);
+  transform: translateY(-1px);
+}

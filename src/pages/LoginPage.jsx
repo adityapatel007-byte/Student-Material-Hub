@@ -28,7 +28,7 @@ export default function LoginPage() {
   }
   return (
     <div className="center-page">
-      <h1 style={{ textAlign: 'center', marginBottom: 12, color: 'var(--color-navy)' }}>Student Material Hub</h1>
+      <h1 style={{ textAlign: 'center', marginBottom: 24, color: 'var(--color-text-dark)', textShadow: '0 2px 4px var(--color-shadow)', fontSize: '2.5em' }}>Student Material Hub</h1>
       <div className="auth">
         <div className="tabs"><Link className="active" to="/login">Login</Link><Link to="/register">Register</Link></div>
         <form onSubmit={submit} className="form">

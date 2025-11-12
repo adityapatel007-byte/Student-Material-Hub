@@ -72,4 +72,20 @@ export const SubjectsAPI = {
   remove: (id) => apiFetch(`/api/subjects/${id}`, { method: 'DELETE' }),
 }
 
+export const QuestionsAPI = {
+  list: (params = {}) => {
+    const searchParams = new URLSearchParams()
+    if (params.subject) searchParams.append('subject', params.subject)
+    if (params.search) searchParams.append('search', params.search)
+    const queryString = searchParams.toString()
+    return apiFetch(`/api/questions${queryString ? `?${queryString}` : ''}`)
+  },
+  get: (id) => apiFetch(`/api/questions/${id}`),
+  create: (payload) => apiFetch('/api/questions', { method: 'POST', body: JSON.stringify(payload) }),
+  addAnswer: (id, content) => apiFetch(`/api/questions/${id}/answers`, { method: 'POST', body: JSON.stringify({ content }) }),
+  resolve: (id) => apiFetch(`/api/questions/${id}/resolve`, { method: 'PATCH' }),
+  remove: (id) => apiFetch(`/api/questions/${id}`, { method: 'DELETE' }),
+  removeAnswer: (questionId, answerId) => apiFetch(`/api/questions/${questionId}/answers/${answerId}`, { method: 'DELETE' }),
+}
+
 
